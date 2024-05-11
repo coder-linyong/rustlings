@@ -5,17 +5,15 @@
 // Example: England,France,4,2 (England scored 4 goals, France 2).
 //
 // You have to build a scores table containing the name of the team, the total
-// number of goals the team scored, and the total number of goals the team 
-// conceded. One approach to build the scores table is to use a Hashmap. 
-// The solution is partially written to use a Hashmap, 
+// number of goals the team scored, and the total number of goals the team
+// conceded. One approach to build the scores table is to use a Hashmap.
+// The solution is partially written to use a Hashmap,
 // complete it to pass the test.
 //
 // Make me pass the tests!
 //
 // Execute `rustlings hint hashmaps3` or use the `hint` watch subcommand for a
 // hint.
-
-// I AM NOT DONE
 
 use std::collections::HashMap;
 
@@ -25,9 +23,33 @@ struct Team {
     goals_conceded: u8,
 }
 
+type TeamMap = HashMap<String, Team>;
+
+impl Team {
+    fn new(scored: u8, conceded: u8) -> Self {
+        Team {
+            goals_scored: scored,
+            goals_conceded: conceded,
+        }
+    }
+
+    fn scoring(self: &mut Self, scored: u8, conceded: u8) {
+        self.goals_scored += scored;
+        self.goals_conceded += conceded;
+    }
+
+    fn build(map: &mut TeamMap, name: String, score: u8, loss: u8) {
+        if let Some(team) = map.get_mut(&name) {
+            team.scoring(score, loss);
+        } else {
+            map.insert(name, Team::new(score, loss));
+        }
+    }
+}
+
 fn build_scores_table(results: String) -> HashMap<String, Team> {
     // The name of the team is the key and its associated struct is the value.
-    let mut scores: HashMap<String, Team> = HashMap::new();
+    let mut scores: TeamMap = HashMap::new();
 
     for r in results.lines() {
         let v: Vec<&str> = r.split(',').collect();
@@ -36,10 +58,10 @@ fn build_scores_table(results: String) -> HashMap<String, Team> {
         let team_2_name = v[1].to_string();
         let team_2_score: u8 = v[3].parse().unwrap();
         // TODO: Populate the scores table with details extracted from the
-        // current line. Keep in mind that goals scored by team_1
-        // will be the number of goals conceded by team_2, and similarly
-        // goals scored by team_2 will be the number of goals conceded by
-        // team_1.
+        // 当前行。请记住，team_1的进球数将是team_2的失球数，同样如此
+        // team_2的进球数将是team_1的失球数。
+        Team::build(&mut scores, team_1_name, team_1_score, team_2_score);
+        Team::build(&mut scores, team_2_name, team_2_score, team_1_score);
     }
     scores
 }
@@ -85,3 +107,4 @@ mod tests {
         assert_eq!(team.goals_conceded, 2);
     }
 }
+fn main() {}

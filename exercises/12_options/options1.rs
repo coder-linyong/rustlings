@@ -5,13 +5,12 @@
 
 // I AM NOT DONE
 
-// This function returns how much icecream there is left in the fridge.
-// If it's before 10PM, there's 5 scoops left. At 10PM, someone eats it
-// all, so there'll be no more left :(
+// 此函数返回冰箱中还剩下多少冰淇淋。
+// 如果在晚上 10 点之前，还剩下 5 勺。晚上10点，有人吃光了，
+// 所以不会再有剩下的:(
 fn maybe_icecream(time_of_day: u16) -> Option<u16> {
-    // We use the 24-hour system here, so 10PM is a value of 22 and 12AM is a
-    // value of 0. The Option output should gracefully handle cases where
-    // time_of_day > 23.
+    // 我们在这里使用 24 小时制，因此 10PM 的值为 22,12AM 的值为 0。
+    // Option 输出应正常处理time_of_day > 23 的情况。
     // TODO: Complete the function body - remember to return an Option!
     ???
 }
