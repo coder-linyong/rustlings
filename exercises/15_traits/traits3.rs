@@ -1,17 +1,17 @@
 // traits3.rs
 //
-// Your task is to implement the Licensed trait for both structures and have
-// them return the same information without writing the same function twice.
+// 您的任务是实现两个结构的 Licensed 特征，并让它们返回相同的信息，而无需两次编写相同的函数。
 //
-// Consider what you can add to the Licensed trait.
+// 考虑可以添加到许可特征中的内容。
 //
 // Execute `rustlings hint traits3` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
 
 pub trait Licensed {
-    fn licensing_info(&self) -> String;
+    fn licensing_info(&self) -> String{
+        "Some information".to_string()
+    }
 }
 
 struct SomeSoftware {

@@ -1,8 +1,8 @@
 // traits4.rs
 //
-// Your task is to replace the '??' sections so the code compiles.
+// 你的任务是替换“??”部分以便代码编译。
 //
-// Don't change any line other than the marked one.
+// 除标记行外，请勿更改任何行。
 //
 // Execute `rustlings hint traits4` or use the `hint` watch subcommand for a
 // hint.
@@ -22,8 +22,8 @@ struct OtherSoftware {}
 impl Licensed for SomeSoftware {}
 impl Licensed for OtherSoftware {}
 
-// YOU MAY ONLY CHANGE THE NEXT LINE
-fn compare_license_types(software: ??, software_two: ??) -> bool {
+// 您只能更改下一行
+fn compare_license_types<T:Licensed>(software: T, software_two: T) -> bool {
     software.licensing_info() == software_two.licensing_info()
 }
 
