@@ -1,42 +1,36 @@
 // errors5.rs
 //
-// This program uses an altered version of the code from errors4.
+// 该程序使用了errors4 中代码的修改版本。
 //
-// This exercise uses some concepts that we won't get to until later in the
-// course, like `Box` and the `From` trait. It's not important to understand
-// them in detail right now, but you can read ahead if you like. For now, think
-// of the `Box<dyn ???>` type as an "I want anything that does ???" type, which,
-// given Rust's usual standards for runtime safety, should strike you as
-// somewhat lenient!
+// 本练习使用了一些我们在课程后面才会了解的概念，例如“Box”和“From”特征。
+// 现在详细了解它们并不重要，但如果您愿意，可以继续阅读。
+// 现在，将 `Box<dyn ???>` 类型视为“我想要任何可以 ??? 的东西”类型，其中，
+// 考虑到 Rust 通常的运行时安全标准，你应该会觉得有些宽松！
 //
-// In short, this particular use case for boxes is for when you want to own a
-// value and you care only that it is a type which implements a particular
-// trait. To do so, The Box is declared as of type Box<dyn Trait> where Trait is
-// the trait the compiler looks for on any value used in that context. For this
-// exercise, that context is the potential errors which can be returned in a
-// Result.
+// 简而言之，盒子的这种特殊用例适用于当您想要拥有一个值并且您只关心它是实现特定特征的类型时。
+// 为此，将 Box 声明为 Box<dyn Trait> 类型，其中 Trait 是编译器在该上下文中使用的任何值上查找的特征。
+// 对于本练习，该上下文是可以在结果中返回的潜在错误。
 //
-// What can we use to describe both errors? In other words, is there a trait
-// which both errors implement?
+// 我们可以用什么来描述这两个错误？换句话说，是否存在两个错误都实现的特征？
 //
 // Execute `rustlings hint errors5` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
 
 use std::error;
+use std::error::Error;
 use std::fmt;
 use std::num::ParseIntError;
 
 // TODO: update the return type of `main()` to make this compile.
-fn main() -> Result<(), Box<dyn ???>> {
+fn main() -> Result<(), Box<dyn Error>> {
     let pretend_user_input = "42";
     let x: i64 = pretend_user_input.parse()?;
     println!("output={:?}", PositiveNonzeroInteger::new(x)?);
     Ok(())
 }
 
-// Don't change anything below this line.
+// 不要更改此线以下的任何内容。
 
 #[derive(PartialEq, Debug)]
 struct PositiveNonzeroInteger(u64);
