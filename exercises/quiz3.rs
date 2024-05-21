@@ -1,33 +1,32 @@
 // quiz3.rs
 //
-// This quiz tests:
+// 本测验测试：
 // - Generics
 // - Traits
 //
-// An imaginary magical school has a new report card generation system written
-// in Rust! Currently the system only supports creating report cards where the
-// student's grade is represented numerically (e.g. 1.0 -> 5.5). However, the
-// school also issues alphabetical grades (A+ -> F-) and needs to be able to
-// print both types of report card!
+// 一个虚构的魔法学校有一个用 Rust 编写的新成绩单生成系统！
+// 目前，系统仅支持创建以数字表示学生成绩的成绩单（例如 1.0 -> 5.5）。
+// 但是，学校也发布按字母顺序排列的成绩（A+ -> F-），并且需要能够打印两种类型的成绩单！
 //
-// Make the necessary code changes in the struct ReportCard and the impl block
-// to support alphabetical report cards. Change the Grade in the second test to
-// "A+" to show that your changes allow alphabetical grades.
+// 在 struct ReportCard 和 impl 块中进行必要的代码更改，以支持按字母顺序排列的报告卡。
+// 将第二次测试中的成绩更改为“A+”，以表明您的更改允许按字母顺序排列的成绩。
 //
 // Execute `rustlings hint quiz3` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
+use std::fmt::Display;
 
-pub struct ReportCard {
-    pub grade: f32,
+pub struct ReportCard<T> {
+    pub grade: T,
     pub student_name: String,
     pub student_age: u8,
 }
 
-impl ReportCard {
+impl<T: Display> ReportCard<T> {
     pub fn print(&self) -> String {
-        format!("{} ({}) - achieved a grade of {}",
-            &self.student_name, &self.student_age, &self.grade)
+        format!(
+            "{} ({}) - achieved a grade of {}",
+            &self.student_name, &self.student_age, &self.grade
+        )
     }
 }
 
@@ -50,9 +49,9 @@ mod tests {
 
     #[test]
     fn generate_alphabetic_report_card() {
-        // TODO: Make sure to change the grade here after you finish the exercise.
+        // TODO: 完成练习后，请务必在此处更改成绩。
         let report_card = ReportCard {
-            grade: 2.1,
+            grade: "A+",
             student_name: "Gary Plotter".to_string(),
             student_age: 11,
         };
@@ -62,3 +61,5 @@ mod tests {
         );
     }
 }
+
+fn main() {}
