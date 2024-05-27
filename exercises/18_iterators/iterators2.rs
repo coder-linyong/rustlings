@@ -1,38 +1,44 @@
 // iterators2.rs
 //
-// In this exercise, you'll learn some of the unique advantages that iterators
-// can offer. Follow the steps to complete the exercise.
+// 在本练习中，你将了解迭代器可以提供的一些独特优势。
+// 按照步骤完成练习。
 //
 // Execute `rustlings hint iterators2` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
-
 // Step 1.
-// Complete the `capitalize_first` function.
+// 完成“capitalize_first”功能。
 // "hello" -> "Hello"
 pub fn capitalize_first(input: &str) -> String {
     let mut c = input.chars();
     match c.next() {
         None => String::new(),
-        Some(first) => ???,
+        Some(first) => {
+            let mut str = first.to_uppercase().to_string();
+            str.push_str(c.as_str());
+            str
+        }
     }
 }
 
 // Step 2.
-// Apply the `capitalize_first` function to a slice of string slices.
-// Return a vector of strings.
+// 将“capitalize_first”函数应用于字符串切片。
+// 返回字符串的向量。
 // ["hello", "world"] -> ["Hello", "World"]
 pub fn capitalize_words_vector(words: &[&str]) -> Vec<String> {
-    vec![]
+    words.iter().map(|x| capitalize_first(x)).collect()
 }
 
 // Step 3.
-// Apply the `capitalize_first` function again to a slice of string slices.
+// 再次将“capitalize_first”函数应用于字符串切片。
 // Return a single string.
 // ["hello", " ", "world"] -> "Hello World"
 pub fn capitalize_words_string(words: &[&str]) -> String {
-    String::new()
+    words
+        .iter()
+        .map(|x| capitalize_first(x))
+        .collect::<Vec<String>>()
+        .join("")
 }
 
 #[cfg(test)]
@@ -61,3 +67,5 @@ mod tests {
         assert_eq!(capitalize_words_string(&words), "Hello World");
     }
 }
+
+fn main() {}

@@ -1,15 +1,12 @@
 // iterators3.rs
 //
-// This is a bigger exercise than most of the others! You can do it! Here is
-// your mission, should you choose to accept it:
-// 1. Complete the divide function to get the first four tests to pass.
-// 2. Get the remaining tests to pass by completing the result_with_list and
-//    list_of_results functions.
+// 这是一项比大多数其他练习更大的练习！你可以的！
+// 这是你的任务，如果你选择接受它：
+// 1. 完成除法函数以使前四个测试通过。
+// 2. 通过完成 result_with_list 和 list_of_results 函数来通过剩余的测试。
 //
 // Execute `rustlings hint iterators3` or use the `hint` watch subcommand for a
 // hint.
-
-// I AM NOT DONE
 
 #[derive(Debug, PartialEq, Eq)]
 pub enum DivisionError {
@@ -23,26 +20,35 @@ pub struct NotDivisibleError {
     divisor: i32,
 }
 
-// Calculate `a` divided by `b` if `a` is evenly divisible by `b`.
-// Otherwise, return a suitable error.
+// 如果“a”能被“b”整除，则计算“a”除以“b”。
+// 否则，返回适当的错误。
 pub fn divide(a: i32, b: i32) -> Result<i32, DivisionError> {
-    todo!();
+    if b == 0 {
+        return Err(DivisionError::DivideByZero);
+    }
+    if a % b == 0 {
+        return Ok(a / b);
+    }
+    let not_divisible_error = NotDivisibleError {
+        dividend: a,
+        divisor: b,
+    };
+    Err(DivisionError::NotDivisible(not_divisible_error))
 }
 
-// Complete the function and return a value of the correct type so the test
-// passes.
+// 完成函数并返回正确类型的值，以便测试通过。
 // Desired output: Ok([1, 11, 1426, 3])
-fn result_with_list() -> () {
+fn result_with_list() -> Result<Vec<i32>, DivisionError> {
     let numbers = vec![27, 297, 38502, 81];
-    let division_results = numbers.into_iter().map(|n| divide(n, 27));
+    numbers.into_iter().map(|x1| divide(x1, 27)).collect()
 }
 
 // Complete the function and return a value of the correct type so the test
 // passes.
 // Desired output: [Ok(1), Ok(11), Ok(1426), Ok(3)]
-fn list_of_results() -> () {
+fn list_of_results() -> Vec<Result<i32, DivisionError>> {
     let numbers = vec![27, 297, 38502, 81];
-    let division_results = numbers.into_iter().map(|n| divide(n, 27));
+    numbers.into_iter().map(|n| divide(n, 27)).collect()
 }
 
 #[cfg(test)]
@@ -88,3 +94,5 @@ mod tests {
         );
     }
 }
+
+fn main() {}
